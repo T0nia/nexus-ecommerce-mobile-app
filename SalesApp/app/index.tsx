@@ -3,8 +3,8 @@ import React from "react";
 import { Link, Stack } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "@/constants/Colors";
-import { Ionicons } from "@expo/vector-icons";
 import Animated, { FadeIn, FadeInLeft, FadeInUp } from "react-native-reanimated";
+import SocialBtn from '@/components/SocialBtn';
 
 type Props = {};
 
@@ -19,33 +19,10 @@ const WelcomeScreen = (props: Props) => {
     <LinearGradient colors={["transparent", 'rgba(255, 255, 255, 0.9)', 'rgba(255, 255, 255, 1)']} style={styles.background}>
     <View style={styles.wrapper}> 
       <Animated.Text style={styles.title} entering={FadeInLeft.delay(500).duration(300)}>SwiftCart</Animated.Text>
+      
       <Animated.Text style={styles.description} entering={FadeInLeft.delay(500).duration(300)}>Best place to buy high-quality items.</Animated.Text>
 
-<View style={styles.socialLoginWrap}>
-  <Animated.View entering={FadeInUp.delay(700).duration(500)}>
-<Link href={"/signup"} asChild>
-        <TouchableOpacity style={styles.button}>
-        <Ionicons name="mail-outline" size={20} color={Colors.black}/>
-          <Text style={styles.btnTxt}>Continue with Email</Text>
-        </TouchableOpacity>
-      </Link>
-  </Animated.View>
-  <Animated.View entering={FadeInUp.delay(700).duration(500)}>
-    
-        <TouchableOpacity style={styles.button}>
-        <Ionicons name="logo-apple" size={20} color={Colors.black}/>
-          <Text style={styles.btnTxt}>Continue with Apple</Text>
-        </TouchableOpacity>
-        
-  </Animated.View>
-  <Animated.View entering={FadeInUp.delay(700).duration(500)}>
-
-        <TouchableOpacity style={styles.button}>
-        <Ionicons name="logo-google" size={20} color={Colors.black}/>
-          <Text style={styles.btnTxt}>Continue with Google</Text>
-        </TouchableOpacity>
-        </Animated.View> 
-</View>
+<SocialBtn  emailHref={"/signup"}/>
 
 <Text style={styles.loginTxt}>Already have an account? {" "}
         <Link href={"/signin"} asChild>
@@ -98,26 +75,6 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     marginBottom: 20
   },
-  socialLoginWrap: {
-alignSelf: 'stretch',
-
-  },
-  button: {
-flexDirection: 'row',
-padding: 10,
-borderColor: Colors.gray,
-borderWidth: StyleSheet.hairlineWidth,
-borderRadius: 25,
-alignItems: 'center',
-justifyContent: 'center',
-gap: 5,
-marginBottom: 15
-  },
-  btnTxt: {
-fontSize: 14,
-fontWeight: 600,
-color: Colors.black,
-  },
   loginTxt: {
     marginTop: 30,
     fontSize: 14,
@@ -127,7 +84,6 @@ color: Colors.black,
   loginSpanTxt: {
     color: Colors.primary,
     fontWeight: 600,
-
   }
   
 });
