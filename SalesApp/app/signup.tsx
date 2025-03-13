@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import React from 'react'
 import { Link, router, Stack } from 'expo-router';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import FieldInput from '@/components/FieldInput';
 import SocialBtn from '@/components/SocialBtn';
+import { Colors } from '@/constants/Colors';
 
 
 
