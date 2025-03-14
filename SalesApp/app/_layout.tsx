@@ -3,7 +3,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { Provider } from 'react-redux'; // Import Redux Provider
-import { store } from '@/redux/store'; // Import your Redux store
+import { store } from '@/redux/store'; // Import Redux store
 import 'react-native-reanimated';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.

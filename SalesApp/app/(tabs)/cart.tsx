@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart } from '@/redux/cartSlice'; // Import removeFromCart action
+import { removeFromCart } from '@/redux/cartSlice'; // 
 import { Colors } from '@/constants/Colors';
 
 const CartScreen = () => {
@@ -18,9 +18,7 @@ const CartScreen = () => {
       return;
     }
 
-    //logic here for the payment process
-    
-
+    // Logic for payment process
     Alert.alert(
       'Order Confirmation',
       'Your order has been placed successfully!',
@@ -28,10 +26,7 @@ const CartScreen = () => {
         {
           text: 'OK',
           onPress: () => {
-            // After confirming the order, you can clear the cart
-            // You can dispatch an action to clear the cart if needed
-            // For example, if you have a clearCart action in your cartSlice:
-            // dispatch(clearCart());
+            // After confirming the order, you can clear the cart if needed
             console.log('Order placed and cart cleared');
           },
         },
@@ -41,25 +36,30 @@ const CartScreen = () => {
 
   const renderCartItem = ({ item }: { item: any }) => (
     <View style={styles.cartItem}>
-      <Text style={styles.cartItemTitle}>{item.title}</Text>
-      <Text style={styles.cartItemPrice}>${item.price}</Text>
-      <Text style={styles.cartItemQuantity}>Quantity: {item.quantity}</Text>
+      {/* Display the product image */}
+      <Image source={{ uri: item.image }} style={styles.cartImage} />
 
-      {/* Buttons container */}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity 
-          style={styles.removeButton} 
-          onPress={() => handleRemoveFromCart(item.id)}
-        >
-          <Text style={styles.removeButtonText}>Remove</Text>
-        </TouchableOpacity>
+      <View style={styles.cartDetails}>
+        <Text style={styles.cartItemTitle}>{item.title}</Text>
+        <Text style={styles.cartItemPrice}>${item.price}</Text>
+        <Text style={styles.cartItemQuantity}>Quantity: {item.quantity}</Text>
+        
+        {/* Buttons container */}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.removeButton}
+            onPress={() => handleRemoveFromCart(item.id)}
+          >
+            <Text style={styles.removeButtonText}>Remove</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.buyNowButton} 
-          onPress={handleBuyNow}
-        >
-          <Text style={styles.buyNowButtonText}>Buy Now</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buyNowButton}
+            onPress={handleBuyNow}
+          >
+            <Text style={styles.buyNowButtonText}>Buy Now</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   cartItem: {
+    flexDirection: 'row',
     marginBottom: 10,
     padding: 10,
     backgroundColor: Colors.white,
@@ -102,6 +103,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
+  },
+  cartImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginRight: 10,
+    resizeMode: 'cover',
+  },
+  cartDetails: {
+    flex: 1,
   },
   cartItemTitle: {
     fontSize: 18,

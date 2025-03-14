@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { Picker } from '@react-native-picker/picker'; // Correct Picker import
+import { Picker } from '@react-native-picker/picker'; 
 import axios from 'axios';
 import { addToCart } from '@/redux/cartSlice';
 import { Colors } from '@/constants/Colors';
