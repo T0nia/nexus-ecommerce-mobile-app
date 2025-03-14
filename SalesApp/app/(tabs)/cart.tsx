@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '@/redux/cartSlice'; // Import removeFromCart action
 import { Colors } from '@/constants/Colors';
@@ -12,17 +12,55 @@ const CartScreen = () => {
     dispatch(removeFromCart(id));
   };
 
+  const handleBuyNow = () => {
+    if (cartItems.length === 0) {
+      Alert.alert('Cart is empty', 'You cannot proceed with the purchase because your cart is empty.');
+      return;
+    }
+
+    //logic here for the payment process
+    
+
+    Alert.alert(
+      'Order Confirmation',
+      'Your order has been placed successfully!',
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            // After confirming the order, you can clear the cart
+            // You can dispatch an action to clear the cart if needed
+            // For example, if you have a clearCart action in your cartSlice:
+            // dispatch(clearCart());
+            console.log('Order placed and cart cleared');
+          },
+        },
+      ]
+    );
+  };
+
   const renderCartItem = ({ item }: { item: any }) => (
     <View style={styles.cartItem}>
       <Text style={styles.cartItemTitle}>{item.title}</Text>
       <Text style={styles.cartItemPrice}>${item.price}</Text>
       <Text style={styles.cartItemQuantity}>Quantity: {item.quantity}</Text>
-      <TouchableOpacity 
-        style={styles.removeButton} 
-        onPress={() => handleRemoveFromCart(item.id)}
-      >
-        <Text style={styles.removeButtonText}>Remove</Text>
-      </TouchableOpacity>
+
+      {/* Buttons container */}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity 
+          style={styles.removeButton} 
+          onPress={() => handleRemoveFromCart(item.id)}
+        >
+          <Text style={styles.removeButtonText}>Remove</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.buyNowButton} 
+          onPress={handleBuyNow}
+        >
+          <Text style={styles.buyNowButtonText}>Buy Now</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -78,16 +116,35 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 5,
   },
-  removeButton: {
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Distribute buttons evenly
     marginTop: 10,
-    backgroundColor: Colors.primary,
+  },
+  removeButton: {
+    backgroundColor: Colors.gray, // Soft gray for the remove button
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
+    flex: 1, // To make the button stretch on the left
+    marginRight: 10, // Space between buttons
   },
   removeButtonText: {
     color: Colors.white,
     fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  buyNowButton: {
+    backgroundColor: Colors.primary, // Subtle purple for the "Buy Now" button
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    flex: 1, // To make the button stretch on the right
+  },
+  buyNowButtonText: {
+    color: Colors.white,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   emptyMessage: {
     fontSize: 18,
