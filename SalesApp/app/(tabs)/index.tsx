@@ -1,25 +1,3 @@
-// import { StyleSheet, Text, View } from 'react-native'
-// import React from 'react'
-
-// type Props = {}
-
-// const HomeScreen = (props: Props) => {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Home Screen</Text>
-//     </View>
-//   )
-// }
-
-// export default HomeScreen
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center'
-//   }
-// })
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 import axios from 'axios';
@@ -46,7 +24,8 @@ const HomeScreen = () => {
       setLoading(true);
       try {
         const response = await axios.get('https://fakestoreapi.com/products');
-        setProducts(response.data);
+        const sortedProducts = response.data.sort((a: Product, b: Product) => a.price - b.price); // Sort by price (ascending)
+        setProducts(sortedProducts);
       } catch (error) {
         console.error('Error fetching products', error);
       } finally {

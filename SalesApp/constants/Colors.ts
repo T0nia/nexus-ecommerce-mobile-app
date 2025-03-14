@@ -6,5 +6,6 @@ export const Colors = {
   white: '#fff',
   background: '#F4F4F4',
   highlight: '#F4CE14',
-  success: '#28a745',  // Adding a green color for success
+  success: '#28a745',
+  red: '#FF4D4D', 
 };
